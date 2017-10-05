@@ -1,7 +1,7 @@
 var http = require('http');
 var fs = require('fs');//引入文件读取模块
 
-var documentRoot = 'D:/git/HbuildDemo';//需要访问的本地文件的存放目录
+var documentRoot = 'C:/project/nodejs/HbuildDemo';//需要访问的本地文件的存放目录
 
 var server = http.createServer(function (req, res) {
 
@@ -21,6 +21,7 @@ var server = http.createServer(function (req, res) {
     //参数2:回调函数,读取失败的信息在err中,err为空表示没有错误.data为读取到的文件数据
     fs.readFile(file, function (err, data) {
          if (err) {
+            console.log(err)
             res.writeHeader(404, {'content-type': 'text/html;charset="utf-8"'});
             res.write('<h1>404错误</h1><p>你要找的页面不存在</p>');
             res.end();
