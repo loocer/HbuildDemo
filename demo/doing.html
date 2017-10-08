@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        margin: 0px;
+        overflow: hidden;
+        height: 100%;
+    }
+    #myCanvas{
+        background-color: #000000;
+        overflow:hidden;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+<canvas id="myCanvas" width="500" height="700" >
+Your browser does not support the canvas element.
+</canvas>
+
+<script type="text/javascript">
+
+var c=document.getElementById("myCanvas");
+var cxt=c.getContext("2d");
+
+var getVibration={
+    range:20
+}
+var tempPosations=[1.323,3.43434,5.65656];
+getVibration.calculation = function({value1,value2}) {
+  let r = this.range
+  return Math.abs(value2 - value1).toFixed(r)
+}
+var acc = document.getElementById("acc");
+var xPosation = 0
+var time=0;
+var yInit=500
+var lastPoint={x:0,y:200}
+var points = []
+function doing(){
+    
+    document.addEventListener( "plusready", function(){
+        // 扩展API加载完毕，现在可以正常调用扩展API
+        var tempPosations=[1.323,3.43434,5.65656];
+        plus.accelerometer.watchAcceleration( function ( a ) {
+            time++
+            if(time%5==0){
+               mainfoo(a)  
+            } 
+        }, function ( e ) {
+            alert( "Acceleration error: " + e.message ); 
+        },{frequency:10}); 
+    }, false );
+}
+function mainfoo(a){
+    xPosation=xPosation+5
+    var y = Math.floor(a.yAxis*10000)
+    var x = Math.floor(a.xAxis*10000)
+    var z = Math.floor(a.zAxis*10000)          
+    var pos=[x,y,z]
+    var pArray = []
+    for(let p=0;p<pos.length;p++){
+        let a = Math.abs(pos[p] - tempPosations[p]).toFixed(2)
+        pArray.push(a)
+    }
+    var temp = pArray[0]
+    for(let i in pArray){
+      temp=temp>pArray[i]?temp:pArray[i]
+    }
+    tempPosations=pos
+    var tempy=yInit*(1-temp/10000)>50?yInit*(1-temp/10000):50
+    if(xPosation<400){
+      let p={x:xPosation,y:tempy}
+      points.push(p)
+    }else{
+      let p={x:xPosation,y:tempy}
+      points.push(p)
+      let tempp=points.slice(1,points.length)
+      for(let t=0;t<tempp.length;t++){
+        tempp[t].x=t*5
+      }
+      points=tempp
+    }
+    cxt.clearRect(0,0,1000,1000);
+    cxt.beginPath();
+    cxt.strokeStyle='#00ff0c';
+    for(let i=1;i<points.length;i++){
+       cxt.moveTo(points[i-1].x,points[i-1].y);
+       cxt.lineTo(points[i].x,points[i].y);
+       cxt.stroke();
+    }
+    cxt.closePath();
+}
+doing()
+</script>
+
+</body>
+</html>
