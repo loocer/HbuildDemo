@@ -41,7 +41,6 @@ var yInit=500
 var lastPoint={x:0,y:200}
 var points = []
 function doing(){
-    
     document.addEventListener( "plusready", function(){
         // 扩展API加载完毕，现在可以正常调用扩展API
         var tempPosations=[1.323,3.43434,5.65656];
@@ -59,7 +58,7 @@ function mainfoo(a){
     xPosation=xPosation+5
     var y = Math.floor(a.yAxis*10000)
     var x = Math.floor(a.xAxis*10000)
-    var z = Math.floor(a.zAxis*10000)          
+    var z = Math.floor(a.zAxis*10000)
     var pos=[x,y,z]
     var pArray = []
     for(let p=0;p<pos.length;p++){
@@ -71,8 +70,11 @@ function mainfoo(a){
       temp=temp>pArray[i]?temp:pArray[i]
     }
     tempPosations=pos
-    var tempy=yInit*(1-temp/10000)>50?yInit*(1-temp/10000):50
-    if(xPosation<400){
+    var tempy=yInit*(1-temp/50000)>400?yInit*(1-temp/50000):400
+    if(tempy==400){
+      plus.device.beep(3);
+    }
+    if(xPosation<500){
       let p={x:xPosation,y:tempy}
       points.push(p)
     }else{
@@ -88,9 +90,15 @@ function mainfoo(a){
     cxt.beginPath();
     cxt.strokeStyle='#00ff0c';
     for(let i=1;i<points.length;i++){
-       cxt.moveTo(points[i-1].x,points[i-1].y);
-       cxt.lineTo(points[i].x,points[i].y);
-       cxt.stroke();
+      if(i%2==0){
+        cxt.moveTo(points[i-1].x,yInit*2-points[i-1].y);
+        cxt.lineTo(points[i].x,points[i].y);
+        cxt.stroke();
+      }else{
+        cxt.moveTo(points[i-1].x,points[i-1].y);
+        cxt.lineTo(points[i].x,yInit*2-points[i].y);
+        cxt.stroke();
+      }
     }
     cxt.closePath();
 }
