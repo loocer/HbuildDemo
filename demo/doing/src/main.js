@@ -5,7 +5,9 @@ import FastClick from 'fastclick'
 import Vum from './vum.js'
 
 // demos
-import Index from './demos/Index'
+import Index from './view/Index'
+import ShowPanel from './view/ShowPanel'
+
 import Page from './demos/Page'
 import Buttons from './demos/Buttons'
 import Column from './demos/Column'
@@ -40,6 +42,11 @@ let router = new Router({
       path: '/',
       name: 'index',
       component: Index
+    },
+    {
+      path: '/show-panel',
+      name: 'ShowPanel',
+      component: ShowPanel
     },
     {
       path: '/page',
