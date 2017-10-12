@@ -17,6 +17,7 @@
     }
 </style>
 <body>
+<div></div>
 <canvas id="myCanvas" width="500" height="700" >
 Your browser does not support the canvas element.
 </canvas>
@@ -46,12 +47,12 @@ function doing(){
         var tempPosations=[1.323,3.43434,5.65656];
         plus.accelerometer.watchAcceleration( function ( a ) {
             time++
-            if(time%5==0){
+            if(time%2==0){
                mainfoo(a)  
             } 
         }, function ( e ) {
             alert( "Acceleration error: " + e.message ); 
-        },{frequency:10}); 
+        },{frequency:2}); 
     }, false );
 }
 function mainfoo(a){
@@ -70,8 +71,8 @@ function mainfoo(a){
       temp=temp>pArray[i]?temp:pArray[i]
     }
     tempPosations=pos
-    var tempy=yInit*(1-temp/50000)>400?yInit*(1-temp/50000):400
-    if(tempy==400){
+    var tempy=yInit*(1-temp/50000)>350?yInit*(1-temp/50000):350
+    if(tempy<400){
       plus.device.beep(3);
     }
     if(xPosation<500){
