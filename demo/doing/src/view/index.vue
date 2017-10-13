@@ -53,6 +53,7 @@ export default {
   left: 0;
   width: 100%;
   bottom: 2.8rem;
+  overflow-y:hidden;
 }
 .demo-icon-home {
   background-image: url("../assets/images/home/home.png");
@@ -69,5 +70,8 @@ export default {
 .demo-icon-me {
   background-image: url("../assets/images/home/person.png");
   background-size: 100%;
+}
+.page-content{
+  overflow-y:hidden;
 }
 </style>
