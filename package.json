@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/loocer/HbuildDemo/issues"
   },
-  "homepage": "https://github.com/loocer/HbuildDemo#readme"
+  "homepage": "https://github.com/loocer/HbuildDemo#readme",
+  "dependencies": {
+    "weex-ui": "^0.1.2"
+  }
 }

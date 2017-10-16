@@ -2,9 +2,13 @@
   <div class="my-page">
     <page-header>
       <header-title>显示屏</header-title>
+      <header-link>设置</header-link>
     </page-header>
     <page-content>
-       <wxc-slider-bar v-bind="sliderBarCfg"></wxc-slider-bar>
+      <div class="set-property">
+        <input type="range" value="0">
+        <MintRange v-model="val" :end-func="endFn"></MintRange>
+      </div>
       <canvas id="myCanvas" width="500" height="700" >
       Your browser does not support the canvas element.
       </canvas>
@@ -14,28 +18,19 @@
 <script>
 import { Header, HeaderLink, HeaderTitle } from '../components/header'
 import Content from '../components/content'
-import { wxcSliderBar } from 'weex-ui'
+import MintRange from 'vue-range'
 export default {
   components: {
     'page-header': Header,
     HeaderLink,
-    wxcSliderBar,
     HeaderTitle,
+    MintRange,
     'page-content': Content
   },
   data () {
     return {
       getVibration: {
         range: 20
-      },
-      sliderBarCfg: {
-        length: 400,
-        range: false,
-        min: 0,
-        max: 100,
-        value: 50,
-        defaultValue: 50,
-        disabled: false
       }
     }
   },
@@ -136,5 +131,10 @@ export default {
         overflow:hidden;
         width: 100%;
         height: 100%;
+    }
+    .set-property{
+      width: 100%;
+      height:300px;
+      background-color: #ffffff;
     }
 </style>
