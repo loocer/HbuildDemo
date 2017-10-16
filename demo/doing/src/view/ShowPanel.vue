@@ -14,7 +14,7 @@
       </div>
       <canvas id="myCanvas" width="500" height="700" >
       Your browser does not support the canvas element.
-      </canvas>
+      </canvas>b
     </page-content>
   </div>
 </template>
