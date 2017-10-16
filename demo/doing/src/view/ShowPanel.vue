@@ -2,15 +2,16 @@
   <div class="my-page">
     <page-header>
       <header-title>显示屏</header-title>
+      <header-link>设置</header-link>
     </page-header>
     <page-content>
       <div class="set-property">
-      <p>
-        <span class="le-te">灵敏度：</span> <span>低</span><input type="range" v-model="senVal" name="range"   step="0.1" value="" /><span>高</span>
-      </p>
-      <p>
-        <span class="le-te">监测频率：</span> <span>慢</span><input type="range"  v-model="freVal" name="range" step="10" value="" /><span>快</span>
-      </p>
+        <p>
+          <span class="le-te">灵敏度：</span> <span>低</span><input type="range" v-model="senVal" name="range"   step="0.1" value="" /><span>高</span>
+        </p>
+        <p>
+          <span class="le-te">监测频率：</span> <span>慢</span><input type="range"  v-model="freVal" name="range" step="10" value="" /><span>快</span>
+        </p>
       </div>
       <canvas id="myCanvas" width="500" height="700" >
       Your browser does not support the canvas element.

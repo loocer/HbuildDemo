@@ -1,18 +1,21 @@
 <template>
   <div class="page">
     <page-footer>
-      <footer-item v-bind:class="{ 'active' : currentView === 'main1' }" @click.native="changeView('main1')">
-        <span class="icon demo-icon-home"></span>
-        <label>统计</label>
+      <footer-item v-bind:class="{ 'active' : currentView === 'searchPanel' }" @click.native="changeView('searchPanel')">
+          <span class="icon demo-icon-search"></span>
+          <span class="badge">2</span>
+          <label>详情</label>
       </footer-item>
+
+      
       <footer-item v-bind:class="{ 'active' : currentView === 'showPanel' }" @click.native="changeView('showPanel')">
-        <span class="icon demo-icon-search"></span>
+        <span class="icon demo-icon-home"></span>
         <label>显示屏</label>
       </footer-item>
-      <footer-item v-bind:class="{ 'active' : currentView === 'main2' }" @click.native="changeView('main2')">
+      
+      <footer-item v-bind:class="{ 'active' : currentView === 'main1' }" @click.native="changeView('main1')">
         <span class="icon demo-icon-noti"></span>
-        <span class="badge">2</span>
-        <label>预警</label>
+        <label>统计</label>
       </footer-item>
     </page-footer>
     <keep-alive>
@@ -25,13 +28,15 @@
 import Page from '@/components/page'
 import { Footer, Item } from '@/components/footer'
 import ShowPanel from './ShowPanel'
+import SearchPanel from './SearchPanel'
 
 export default {
   components: {
     Page,
     'page-footer': Footer,
     'footer-item': Item,
-    'showPanel': ShowPanel
+    'showPanel': ShowPanel,
+    'searchPanel': SearchPanel
   },
   data () {
     return {

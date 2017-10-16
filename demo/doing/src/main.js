@@ -7,6 +7,7 @@ import Vum from './vum.js'
 // demos
 import Index from './view/Index'
 import ShowPanel from './view/ShowPanel'
+import SearchPanel from './view/SearchPanel'
 
 import Page from './demos/Page'
 import Buttons from './demos/Buttons'
@@ -47,6 +48,11 @@ let router = new Router({
       path: '/show-panel',
       name: 'ShowPanel',
       component: ShowPanel
+    },
+    {
+      path: '/search-panel',
+      name: 'SearchPanel',
+      component: SearchPanel
     },
     {
       path: '/page',
