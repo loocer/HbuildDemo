@@ -237,6 +237,7 @@ export default {
       height:100px;
       color:#ffffff;
       font-size:15px;
+      padding-top:20px; 
       overflow-y:hidden;
       position: fixed;
       background-color:rgba(75, 255, 0, 0.19);
