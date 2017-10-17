@@ -4,6 +4,9 @@ import FastClick from 'fastclick'
 
 import Vum from './vum.js'
 
+import './assets/js/jquery.min.js'
+import './assets/js/bootstrap.js'
+import './assets/css/bootstrap.min.css'
 // demos
 import Index from './view/Index'
 import ShowPanel from './view/ShowPanel'
