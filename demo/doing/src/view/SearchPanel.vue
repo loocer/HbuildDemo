@@ -1,5 +1,5 @@
 <template>
-  <div class="my-page">
+  <div class="fdsds">
     <page-header>
       <header-title>显示屏</header-title>
       <header-link>设置</header-link>
@@ -7,75 +7,66 @@
     <page-content>
       <div class="set-property">
         <p>
-          <button type="button" class="btn btn-primary">清空</button>
-          <button v-if="getFlag" type="button" v-on:click="getingDate" class="btn btn-info">开始</button>
-          <button v-if="!getFlag" type="button" v-on:click="getFlag=!getFlag" class="btn btn-danger">暂停</button>
+          <button type="button" class="btn btn-primary" v-on:click="positions=[]">清空</button>
+          <button v-if="getFlag" type="button" v-on:click="getingDate(false)" class="btn btn-info">开始</button>
+          <button v-if="!getFlag" type="button" v-on:click="getingDate(true)" class="btn btn-danger">暂停</button>
         </p>
         <p>
           <button type="button" class="btn btn-info">最大</button> <button type="button" class="btn btn-info">最小</button>
         </p>
       </div>
-      <table class="table">
-        <caption>最强震动变化值为1000000</caption>
-         <!-- <thead>
-            <tr>
-               <th>名称</th>
-               <th>城市</th>
-            </tr>
-         </thead> -->
-         <tbody>
-            <tr v-for="val in positions">
-               <td>{{val}}</td>
-            </tr>
-         </tbody>
-      </table>
+      <div id="main-table">
+        <list-item >
+           <div class="fuck-td"  v-for="val in positions"><span>------------------{{val}}</span></div>
+        </list-item>
+      </div>
+     
     </page-content>
   </div>
 </template>
 <script>
+import $ from '../assets/js/jquery.min.js'
 import { Header, HeaderLink, HeaderTitle } from '../components/header'
 import Content from '../components/content'
+import { List, ListItem } from '../components/list'
 export default {
   components: {
     'page-header': Header,
     HeaderLink,
+    List,
+    ListItem,
     HeaderTitle,
     'page-content': Content
   },
   data () {
     return {
       getFlag: true,
-      positions: []
+      positions: [32, 32, 434, 4, 34, 545, 3, 443]
     }
   },
   mounted () {
     this.getPosation()
   },
   methods: {
-    getingDate () {
-      this.getFlag = false
+    getingDate (flag) {
+      this.getFlag = flag
     },
     getPosation () {
       var tempfoo = this
       var tempPosations = [1.323, 3.43434, 5.65656]
-      function doing () {
-        window.alert(3)
-        document.addEventListener('plusready', function () {
-          window.plus.accelerometer.watchAcceleration(function (a) {
-            window.alert(3)
-            var t = getMainValue(a)
-            if (!tempfoo.getFlag) {
-              tempfoo.positions.push(t)
-            }
-          }, function (e) {
-            window.alert('Acceleration error: ' + e.message)
-          }, {frequency: 1000})
-        }, false)
-      }
+      window.plus.accelerometer.watchAcceleration(function (a) {
+        var t = getMainValue(a)
+        if (!tempfoo.getFlag) {
+          tempfoo.positions.push(t)
+          $('#main-table').scrollTop(100 * tempfoo.positions.length)
+        }
+      }, function (e) {
+        window.alert('Acceleration error: ' + e.message)
+      }, {frequency: 1})
       function getMainValue (a) {
-        var y = Math.floor(a.yAxis * 1000000)
-        var x = Math.floor(a.xAxis * 1000000)
-        var z = Math.floor(a.zAxis * 1000000)
+        var y = Math.floor(a.yAxis * 100000000)
+        var x = Math.floor(a.xAxis * 100000000)
+        var z = Math.floor(a.zAxis * 100000000)
         var pos = [x, y, z]
         var pArray = []
         for (let p = 0; p < pos.length; p++) {
@@ -88,9 +79,6 @@ export default {
         }
         return temp
       }
-      doing()
-    },
-    getMainValue () {
     }
   },
   watch: {
@@ -126,6 +114,19 @@ export default {
       button{
         width: 30%;
         margin: 5px 10px;
+      }
+    }
+    #main-table{
+      overflow-y: auto;
+      height:calc(~"100% - 160px");
+      pdding:100px;
+      .fuck-td{
+        margin:20px 0;
+        width:100%;
+        text-align: center;
+      }
+      li{
+        list-style:none;
       }
     }
 </style>
