@@ -13,7 +13,7 @@
         <label>显示屏</label>
       </footer-item>
       
-      <footer-item v-bind:class="{ 'active' : currentView === 'main1' }" @click.native="changeView('main1')">
+      <footer-item v-bind:class="{ 'active' : currentView === 'showAlarm' }" @click.native="changeView('showAlarm')">
         <span class="icon demo-icon-noti"></span>
         <label>统计</label>
       </footer-item>
@@ -29,6 +29,7 @@ import Page from '@/components/page'
 import { Footer, Item } from '@/components/footer'
 import ShowPanel from './ShowPanel'
 import SearchPanel from './SearchPanel'
+import ShowAlarm from './ShowAlarm'
 
 export default {
   components: {
@@ -36,7 +37,8 @@ export default {
     'page-footer': Footer,
     'footer-item': Item,
     'showPanel': ShowPanel,
-    'searchPanel': SearchPanel
+    'searchPanel': SearchPanel,
+    'showAlarm': ShowAlarm
   },
   data () {
     return {

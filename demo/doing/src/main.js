@@ -11,6 +11,7 @@ import './assets/css/bootstrap.min.css'
 import Index from './view/Index'
 import ShowPanel from './view/ShowPanel'
 import SearchPanel from './view/SearchPanel'
+import ShowAlarm from './view/showAlarm'
 
 import Page from './demos/Page'
 import Buttons from './demos/Buttons'
@@ -56,6 +57,11 @@ let router = new Router({
       path: '/search-panel',
       name: 'SearchPanel',
       component: SearchPanel
+    },
+    {
+      path: '/show-alarm',
+      name: 'ShowAlarm',
+      component: ShowAlarm
     },
     {
       path: '/page',

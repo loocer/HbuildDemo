@@ -7,7 +7,7 @@
     <page-content>
       <div class="set-property">
         <p>
-          <span class="le-te">灵敏度：</span> <span>低</span><input type="range" v-model="senVal" name="range"   step="0.1" value="" /><span>高</span>
+          <span class="le-te">灵敏度：</span> <span>低</span><input type="range" v-model="senVal" name="range"   step="1" value="" /><span>高</span>
         </p>
         <p>
           <span class="le-te">监测频率：</span> <span>慢</span><input type="range"  v-model="freVal" name="range" step="10" value="" /><span>快</span>
@@ -68,7 +68,7 @@ export default {
             }
           }, function (e) {
             window.alert('Acceleration error: ' + e.message)
-          }, {frequency: 1})
+          }, {frequency: 100})
         }, false)
       }
       function mainfoo (a) {
@@ -87,7 +87,7 @@ export default {
           temp = temp > pArray[i] ? temp : pArray[i]
         }
         tempPosations = pos
-        var tempy = yInit * (1 - temp / 10000 * window.mingan) > 350 ? yInit * (1 - temp / 10000 * window.mingan) : 350
+        var tempy = yInit * (1 - temp / 1 << window.mingan / 10000) > 350 ? yInit * (1 - temp / 1 << window.mingan / 10000) : 350
         if (tempy < 400) {
           // window.plus.device.beep(3)
         }
@@ -131,7 +131,7 @@ export default {
     }
   },
   mounted () {
-    this.draw()
+    // this.draw()
     // var c = document.getElementById('myCanvas')
     // var cxt = c.getContext('2d')
     // var getVibration = {
