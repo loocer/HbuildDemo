@@ -7,18 +7,16 @@
     <page-content>
       <div class="set-property">
         <p>
-          <div class="le-te pull-left">报警频率：</div> <span>0</span><input type="range" v-model="senVal" name="range"   step="1" value="" /><span>100</span>
-          <p><span >{{senVal}}</span></p>
+          <div class="le-te pull-left">报警频率：</div> <input type="range" v-model="num" name="range"   step="1" value="" /><span>{{num}}</span>
         </p>
         <p>
-          <div class="le-te pull-left">是否轰鸣声报警：</div> <switcher></switcher>
+          <div class="le-te pull-left">轰鸣报警：</div> <switcher></switcher>
         </p>
          <p>
           <div class="le-te pull-left">是否记录：</div> <switcher></switcher>
         </p>
-        <p>
-          <button type="button" class="btn btn-default">开启</button> <button type="button" class="btn btn-info">关闭</button>
-        </p>
+       <p>{{isChange}}</p>
+       <p>{{acc}}</p>
       </div>
     </page-content>
   </div>
@@ -42,7 +40,12 @@ export default {
   data () {
     return {
       getFlag: true,
-      positions: [32, 32, 434, 4, 34, 545, 3, 443]
+      senVal: 0,
+      num: 1,
+      tempValue: 0,
+      acc: '8',
+      isChange: true,
+      positions: []
     }
   },
   mounted () {
@@ -61,7 +64,7 @@ export default {
     // document.addEventListener('background', () => {
     //   window.plus.device.beep(3)
     // }, false)
-    // this.getPosation()
+    this.getPosation()
   },
   methods: {
     getingDate (flag) {
@@ -72,17 +75,26 @@ export default {
       var tempPosations = [1.323, 3.43434, 5.65656]
       window.plus.accelerometer.watchAcceleration(function (a) {
         var t = getMainValue(a)
+        if (tempfoo.tempValue - t > tempfoo.num) {
+          tempfoo.isChange = true
+          window.plus.device.beep(1)
+        } else {
+          tempfoo.isChange = false
+        }
+        tempfoo.tempValue = t
+        tempfoo.acc = tempfoo.isChange
         if (!tempfoo.getFlag) {
           tempfoo.positions.push(t)
           $('#main-table').scrollTop(100 * tempfoo.positions.length)
         }
       }, function (e) {
         window.alert('Acceleration error: ' + e.message)
-      }, {frequency: 1})
+      }, {frequency: 200})
       function getMainValue (a) {
-        var y = Math.floor(a.yAxis * 100000000)
-        var x = Math.floor(a.xAxis * 100000000)
-        var z = Math.floor(a.zAxis * 100000000)
+        let cuntVal = Math.pow(10, 3)
+        var y = Math.floor(a.yAxis * cuntVal)
+        var x = Math.floor(a.xAxis * cuntVal)
+        var z = Math.floor(a.zAxis * cuntVal)
         var pos = [x, y, z]
         var pArray = []
         for (let p = 0; p < pos.length; p++) {
@@ -135,10 +147,28 @@ export default {
         width: 30%;
         margin: 5px 10px;
       }
+    }
       input{
         width:40%;
       }
-    }
+      input { font-size: 14px; font-weight: bold;  }
+      input[type=range]{
+        width:50%;
+        margin-left:10px;
+        margin-right:10px;
+      }
+      input[type=range]:before { content: attr(min); padding-right: 5px; }
+      input[type=range]:after { content: attr(max); padding-left: 5px;}
+     input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+}
     #main-table{
       overflow-y: auto;
       height:calc(~"100% - 300px");
