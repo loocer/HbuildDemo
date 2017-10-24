@@ -35,12 +35,14 @@ export default {
         range: 20
       },
       senVal: 2,
-      freVal: 100
+      t: 0,
+      freVal: 50
     }
   },
   methods: {
     draw () {
       var c = document.getElementById('myCanvas')
+      var self = this
       var cxt = c.getContext('2d')
       var getVibration = {
         range: 20
@@ -52,8 +54,8 @@ export default {
       }
       var xPosation = 0
       window.mingan = this.senVal
-      var yInit = 500
-      window.time = 101 - this.freVal
+      var yInit = 350
+      window.time = (11 - (this.freVal === '0' ? 1 : this.freVal) / 10)
       var time = 0
     // var lastPoint = {x:0, y:200}
       var points = []
@@ -68,14 +70,15 @@ export default {
             }
           }, function (e) {
             window.alert('Acceleration error: ' + e.message)
-          }, {frequency: 100})
+          }, {frequency: 1})
         }, false)
       }
       function mainfoo (a) {
         xPosation = xPosation + 5
-        var y = Math.floor(a.yAxis * 10000)
-        var x = Math.floor(a.xAxis * 10000)
-        var z = Math.floor(a.zAxis * 10000)
+        let cuntVal = 1e5
+        var y = Math.floor(a.yAxis * cuntVal)
+        var x = Math.floor(a.xAxis * cuntVal)
+        var z = Math.floor(a.zAxis * cuntVal)
         var pos = [x, y, z]
         var pArray = []
         for (let p = 0; p < pos.length; p++) {
@@ -87,7 +90,10 @@ export default {
           temp = temp > pArray[i] ? temp : pArray[i]
         }
         tempPosations = pos
-        var tempy = yInit * (1 - temp / 1 << window.mingan / 10000) > 350 ? yInit * (1 - temp / 1 << window.mingan / 10000) : 350
+        // var tempy = yInit * temp / self.t > 350 ? yInit * temp / self.t : 350
+        // var tempy = (Number(temp) / 1e4 + yInit) * Number(self.senVal) > 350 ? 350 : (Number(temp) / 1e4 + yInit) * Number(self.senVal)
+        var tempy = Number(temp) / 1e4 * Number(self.senVal) + yInit > 450 ? 450 : Number(temp) / 1e4 * Number(self.senVal) + yInit
+        self.t = tempy
         if (tempy < 400) {
           // window.plus.device.beep(3)
         }
@@ -131,7 +137,7 @@ export default {
     }
   },
   mounted () {
-    // this.draw()
+    this.draw()
     // var c = document.getElementById('myCanvas')
     // var cxt = c.getContext('2d')
     // var getVibration = {
