@@ -27,10 +27,27 @@
 
 <!-- Javascript code that runs our Three.js examples -->
 <script type="text/javascript">
+    document.addEventListener('plusready', function(){
+            //console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+            plus.navigator.setFullscreen(true);
+            plus.screen.lockOrientation('landscape');
+        });
+    window.setTimeout("init()",2000)
     var data = [
         {x:0,y:0.1,z:80,rt:-0.8},
         {x:80,y:0.2,z:0,rt:-0.2},
-        {x:80,y:0.2,z:-50,rt:-0.6}
+        {x:0,y:0.2,z:-80,rt:-0.6},
+        {x:-40,y:0.2,z:0,rt:-0.6},
+
+        {x:0,y:0.1,z:80,rt:-0.2},
+        {x:80,y:0.2,z:0,rt:0.2},
+        {x:0,y:0.2,z:-80,rt:0.2},
+        {x:-40,y:0.2,z:0,rt:0.56},
+
+        {x:0,y:0.1,z:80,rt:-0.18},
+        {x:80,y:0.2,z:0,rt:-0.02},
+        {x:0,y:0.2,z:-80,rt:-0.76},
+        {x:-40,y:0.2,z:0,rt:-0.96}
     ]
     // once everything is loaded, we run our Three.js stuff.
     function init() {
@@ -125,7 +142,7 @@
                     y:0,
                     z:0
                 }
-                var tween = new TWEEN.Tween(sp).to({x:object.x, y:object.y, z:object.z, rz:object.rt * Math.PI}, 1000).onUpdate(function(){
+                var tween = new TWEEN.Tween(sp).to({x:object.x, y:object.y, z:object.z, rz:object.rt * Math.PI}, 400).onUpdate(function(){
                     plane.position.x = this.x;
                     plane.position.y = this.y;
                     plane.position.z = this.z;
@@ -227,7 +244,7 @@
             return stats;
         }
     }
-    window.onload = init
+    // window.onload = init
 
 
 </script>
